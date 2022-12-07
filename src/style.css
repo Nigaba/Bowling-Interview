@@ -1,0 +1,6 @@
+table, table * {
+	border: 1px solid black;
+}
+th {
+	padding: 6px 24px;
+}

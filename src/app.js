@@ -64,6 +64,7 @@ function scoreFrame(frame, nextFrames) {
 function pinsHit(shot) {
 	return [1,0,5,3,3,5,6,4,2,6,7,2,2,4,3,5,7,3,2,0][shot]
 }
+
 function game() {
 	let shotNum = 0;
 	// List of frames
@@ -92,3 +93,47 @@ function game() {
 
 
 game();
+
+// ===============
+let scoreboard = [new BowlingFrame()];
+const input = document.getElementById('input-form');
+
+input.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const pinsHit = Number.parseInt(Array.from(new FormData(input).values())[0]);
+	let currentFrame = scoreboard.length-1;
+	console.log(`${currentFrame +1}: ${scoreboard[currentFrame].shots}`)
+	if (!scoreboard[currentFrame].takeShot(pinsHit) && currentFrame < 9) {
+		scoreboard.push(new BowlingFrame());
+		currentFrame += 1;
+		if (currentFrame > 8) {
+			scoreboard[currentFrame].isLastFrame = true;
+		}
+		scoreboard[currentFrame].takeShot(pinsHit);
+	}
+	document.getElementById(`${currentFrame+1}-${scoreboard[currentFrame].shots.length}`).innerText = pinsHit;
+	console.log(pinsHit);
+});
+
+const calc = document.getElementById('calc-form');
+
+calc.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let frameScores = [];
+	for (let frame = 0; frame < scoreboard.length; frame++) {
+		frameScores.push(scoreFrame(scoreboard[frame], scoreboard.slice(frame+1)));	
+	}
+	
+	let finalScore = sum(frameScores);
+	console.log(finalScore);
+	console.log(scoreboard.flatMap(f => f.shots))
+	const score = document.getElementById('score');
+	score.innerText = finalScore;
+});
+calc.addEventListener('reset', (event) => {
+    event.preventDefault();
+
+	scoreboard = [new BowlingFrame()];
+	document.getElementById('score').innerText = '';
+	document.getElementById('pins-hit').value = '';
+});
