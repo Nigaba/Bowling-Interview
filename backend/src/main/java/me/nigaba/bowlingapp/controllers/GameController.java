@@ -1,23 +1,29 @@
 package me.nigaba.bowlingapp.controllers;
 
-import me.nigaba.bowlingapp.entity.Greeting;
-import me.nigaba.bowlingapp.repository.GreetingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class HomeController {
+@RestController
+public class GameController {
 
-    @Autowired
-    private GreetingRepository repository;
-
-    @GetMapping("/db")
+    @GetMapping("/")
     public String showHome(String name, Model model) {
         Greeting dockerGreeting = repository.findById(1).orElse(new Greeting("Not Found 😕"));
         model = model.addAttribute("name", dockerGreeting.getName());
         return "home";
     }
 
+	@GetMapping("/roll")
+	public String roll(@RequestBody ScoreChart score) {
+
+	}
+	@GetMapping("/reset")
+	public String roll() {
+
+	}
+	@GetMapping("/score")
+	public String roll(@RequestBody ScoreChart score) {
+
+	}
 }
