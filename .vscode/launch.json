@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<bowlingapp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "me.nigaba.bowlingapp.Application",
+            "projectName": "bowlingapp",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
