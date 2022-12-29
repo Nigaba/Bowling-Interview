@@ -10,7 +10,7 @@ services:
     ports:
       - 8080:8080
     networks:
-      - react-spring
+      - node-spring
   #     - spring-postgres
   #   depends_on:
   #     - db
@@ -30,26 +30,24 @@ services:
   #     - spring-postgres
   # Frontend: React (Typescript)
   frontend:
-    build:
-      context: frontend
-      target: development
+    image: node:lts-alpine
+    working_dir: /home/node/app
+    user: node
     ports:
       - 3000:3000
     volumes:
-      - ./frontend/src:/code/src
+      - ./frontend:/home/node/app
       - /project/node_modules
     networks:
-      - react-spring
+      - node-spring
     depends_on:
       - backend
-    expose:
-      - 3306
-      - 33060
+    command: "yarn start"
 # volumes:
 #   db-data:
 secrets:
   db-password:
     file: db/password.txt
 networks:
-  react-spring:
+  node-spring:
   spring-postgres:

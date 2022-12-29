@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
+import ScoreForm from './components/ScoreForm';
+import ScoreTable from './components/ScoreTable';
 import "./App.css";
+import InputForm from "./components/InputForm";
 
 type Greeting = {
 	id: number;
@@ -24,6 +27,9 @@ function App() {
 				<a className="App-link" href="https://reactjs.org"
 					target="_blank" rel="noopener noreferrer">Learn React</a>
 			</header>
+			<InputForm />
+			<ScoreForm />
+			<ScoreTable rolls={[0,0,10,0,9,1,0,10,4,5,3,7,5,3,2,7,7,8,2,8,2]} />
 		</div>
 	);
 }
